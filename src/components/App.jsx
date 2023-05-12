@@ -1,18 +1,58 @@
 import { Component } from 'react';
 import { Searchbar } from './Searchbar/Searchbar';
 
-// import { fetchImages } from 'service/api-images';
-
-// console.log(fetchImages());
+import * as API from '../service/api-images';
+import { ImageGallery } from './ImageGallery/ImageGallery';
 
 export class App extends Component {
   state = {
+    searchQuery: '',
     pictures: [],
+    page: 1,
   };
 
-  searchImg = value => {};
+  handelFormSearch = searchQuery => {
+    this.setState({
+      searchQuery,
+      pictures: [],
+      page: 1,
+    });
+  };
+  handleFormSearch = searchQuery => {
+    this.setState({ searchQuery, page: 1, pictures: [] });
+  };
+
+  async componentDidUpdate(prevProps, prevState) {
+    if (
+      prevState.searchQuery !== this.state.searchQuery ||
+      prevState.page !== this.state.page
+    ) {
+      try {
+        const fetchedApp = await API.fetchImages(
+          this.state.searchQuery,
+          this.state.page
+        );
+
+        this.setState(prevState => {
+          return {
+            pictures: [...prevState.pictures, ...fetchedApp.hits],
+          };
+        });
+        console.log(fetchedApp.hits);
+      } catch (error) {
+        console.log('error');
+      } finally {
+        console.log(this.state);
+      }
+    }
+  }
   render() {
-    return <Searchbar />;
+    return (
+      <>
+        <Searchbar onSearch={this.handelFormSearch} />
+        <ImageGallery pictures={this.pictures} />
+      </>
+    );
   }
 }
 // export const App = () => {

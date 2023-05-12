@@ -2,15 +2,21 @@ import { Component } from 'react';
 
 export class Searchbar extends Component {
   state = {
-    search: '',
+    searchQuery: '',
   };
-  searchImg = evt => {
-    console.log(this.state.evt.currentTarget.value);
+  handleSubmit = evt => {
+    evt.preventDefault();
+    this.props.onSearch(this.state.searchQuery);
+    this.setState({ searchQuery: ' ' });
+  };
+  setSearchQuery = evt => {
+    console.log(evt.currentTarget.value);
+    this.setState({ searchQuery: evt.currentTarget.value.toLowerCase() });
   };
   render() {
     return (
       <header>
-        <form onSubmit={this.searchImg}>
+        <form onSubmit={this.handleSubmit}>
           <button type="submit">
             <span>Search</span>
           </button>
@@ -19,6 +25,7 @@ export class Searchbar extends Component {
             autocomplete="off"
             autofocus
             placeholder="Search images and photos"
+            onChange={this.setSearchQuery}
           />
         </form>
       </header>
