@@ -3,6 +3,7 @@ import { Searchbar } from './Searchbar/Searchbar';
 
 import * as API from '../service/api-images';
 import { ImageGallery } from './ImageGallery/ImageGallery';
+import { Button } from './Button/Button';
 
 export class App extends Component {
   state = {
@@ -20,6 +21,11 @@ export class App extends Component {
   };
   handleFormSearch = searchQuery => {
     this.setState({ searchQuery, page: 1, pictures: [] });
+  };
+
+  handleLoadMore = evt => {
+    const { page } = this.state;
+    this.setState({ page: page + 1 });
   };
 
   async componentDidUpdate(prevProps, prevState) {
@@ -50,7 +56,8 @@ export class App extends Component {
     return (
       <>
         <Searchbar onSearch={this.handelFormSearch} />
-        <ImageGallery pictures={this.pictures} />
+        <ImageGallery pictures={this.state.pictures} />
+        <Button onClick={this.handleLoadMore} />
       </>
     );
   }
