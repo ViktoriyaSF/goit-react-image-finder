@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
 import { ImageModal } from 'components/Modal/ImageModal';
+import { StyledImageGalleryItem } from './StyledImageGalleryItem';
 
 export class ImageGalleryItem extends Component {
   //  selectedTags - для заповнення поля alt в модалці
@@ -27,7 +29,7 @@ export class ImageGalleryItem extends Component {
       picture: { webformatURL, tags },
     } = this.props;
     return (
-      <li>
+      <StyledImageGalleryItem>
         <img src={webformatURL} alt={tags} onClick={this.setSelectedImg} />
         {this.state.selectedImg && (
           <ImageModal
@@ -37,7 +39,7 @@ export class ImageGalleryItem extends Component {
             alt={this.state.selectedTag}
           />
         )}
-      </li>
+      </StyledImageGalleryItem>
     );
   }
 }

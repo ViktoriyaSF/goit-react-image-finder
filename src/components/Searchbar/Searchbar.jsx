@@ -1,6 +1,13 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+
 import { FiSearch } from 'react-icons/fi';
+import {
+  StyledSearchbar,
+  StyledSearchForm,
+  StyledSearchFormButton,
+  StyledSearchFormInput,
+} from './StyledSearchbar';
 
 export class Searchbar extends Component {
   state = {
@@ -20,22 +27,22 @@ export class Searchbar extends Component {
 
   render() {
     return (
-      <header>
-        <form onSubmit={this.handleSubmit}>
-          <button type="submit">
+      <StyledSearchbar>
+        <StyledSearchForm onSubmit={this.handleSubmit}>
+          <StyledSearchFormButton type="submit">
             <span>
               <FiSearch size="1.5em" />
             </span>
-          </button>
-          <input
+          </StyledSearchFormButton>
+          <StyledSearchFormInput
             type="text"
             autocomplete="off"
             autofocus
             placeholder="Search images and photos"
             onChange={this.setSearchQuery}
           />
-        </form>
-      </header>
+        </StyledSearchForm>
+      </StyledSearchbar>
     );
   }
 }

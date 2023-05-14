@@ -2,11 +2,13 @@ import { Component } from 'react';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 import * as API from '../service/api-images';
+import { Layout } from './Layout/Layout';
 import { Searchbar } from './Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Button } from './Button/Button';
 import { Loader } from './Loader/Loader';
 import { BtnUp } from './BtnUP/BtnUp';
+import { GlobalStyle } from './BasicStyles/GlobalStyle';
 
 const ERROR_MSG = 'Sorry try again later 😥';
 export class App extends Component {
@@ -78,15 +80,16 @@ export class App extends Component {
 
   render() {
     return (
-      <>
+      <Layout>
         <Searchbar onSearch={this.handelFormSearch} />
         <ImageGallery pictures={this.state.pictures} />
         {this.state.isLoading && <Loader />}
-        {this.state.pictures && this.state.pictures.length === 12 && (
+        {this.state.pictures.length >= 12 && (
           <Button onClick={this.handleLoadMore} />
         )}
         <BtnUp />
-      </>
+        <GlobalStyle />
+      </Layout>
     );
   }
 }

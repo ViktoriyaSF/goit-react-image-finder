@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { StyledButtonLoad } from './StyledButton';
 
 export const Button = ({ onClick }) => {
   return (
-    <button type="submit" onClick={onClick}>
+    <StyledButtonLoad type="submit" onClick={onClick}>
       Load more
-    </button>
+    </StyledButtonLoad>
   );
 };
 

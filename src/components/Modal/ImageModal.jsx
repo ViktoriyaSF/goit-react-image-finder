@@ -1,4 +1,6 @@
 import Modal from 'react-modal';
+import { Overlay, ModalStyled, StyledButtonClose } from './StyledImageModal';
+import { FiX } from 'react-icons/fi';
 
 const customStyles = {
   content: {
@@ -16,16 +18,18 @@ Modal.setAppElement('#root');
 export const ImageModal = ({ isOpen, image, alt, onClose }) => {
   console.log(image);
   return (
-    <Modal
+    <Overlay
       isOpen={isOpen}
       onRequestClose={onClose}
       style={customStyles}
       contentLabel="Image modal"
     >
-      <div>
+      <ModalStyled>
         <img src={image} alt={alt} width="100%" />
-        {/* <button onClick={onClose}>Close</button> */}
-      </div>
-    </Modal>
+        <StyledButtonClose onClick={onClose}>
+          <FiX size="1.5em" />
+        </StyledButtonClose>
+      </ModalStyled>
+    </Overlay>
   );
 };
