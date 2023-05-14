@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { Searchbar } from './Searchbar/Searchbar';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 import * as API from '../service/api-images';
 import { ImageGallery } from './ImageGallery/ImageGallery';
@@ -17,14 +18,20 @@ export class App extends Component {
   };
 
   handelFormSearch = searchQuery => {
+    const newQuery = searchQuery;
+    if (this.state.searchQuery === newQuery.trim()) {
+      if (!newQuery) {
+        return Notify.failure(
+          'Sorry, the search field cannot be empty. Please enter information to search.'
+        );
+      }
+      return Notify.info('You just searched for that name');
+    }
     this.setState({
       searchQuery,
       pictures: [],
       page: 1,
     });
-  };
-  handleFormSearch = searchQuery => {
-    this.setState({ searchQuery, page: 1, pictures: [] });
   };
 
   handleLoadMore = evt => {
@@ -49,6 +56,12 @@ export class App extends Component {
             pictures: [...prevState.pictures, ...fetchedApp.hits],
           };
         });
+        if (fetchedApp.hits.length < 12) {
+          Notify.info(
+            "We're sorry, but you've reached the end of search results."
+          );
+        }
+        console.log(fetchedApp.hits.length);
         // console.log(fetchedApp.hits);
       } catch (error) {
         this.setState({ error: ERROR_MSG });

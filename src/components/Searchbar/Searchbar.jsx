@@ -5,16 +5,16 @@ export class Searchbar extends Component {
   state = {
     searchQuery: '',
   };
-  handleSubmit = evt => {
-    evt.preventDefault();
-    this.props.onSearch(this.state.searchQuery);
-    this.setState({ searchQuery: ' ' });
-  };
   setSearchQuery = evt => {
     // console.log(evt.currentTarget.value);
     this.setState({
       searchQuery: evt.currentTarget.value.toLowerCase().trim(),
     });
+  };
+  handleSubmit = evt => {
+    evt.preventDefault();
+    this.props.onSearch(this.state.searchQuery);
+    this.setState({ searchQuery: ' ' });
   };
 
   render() {
