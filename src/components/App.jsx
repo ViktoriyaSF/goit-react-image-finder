@@ -49,7 +49,7 @@ export class App extends Component {
             pictures: [...prevState.pictures, ...fetchedApp.hits],
           };
         });
-        console.log(fetchedApp.hits);
+        // console.log(fetchedApp.hits);
       } catch (error) {
         this.setState({ error: ERROR_MSG });
       } finally {

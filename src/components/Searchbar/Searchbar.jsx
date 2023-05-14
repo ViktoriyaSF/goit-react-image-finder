@@ -11,7 +11,7 @@ export class Searchbar extends Component {
     this.setState({ searchQuery: ' ' });
   };
   setSearchQuery = evt => {
-    console.log(evt.currentTarget.value);
+    // console.log(evt.currentTarget.value);
     this.setState({ searchQuery: evt.currentTarget.value.toLowerCase() });
   };
   render() {
