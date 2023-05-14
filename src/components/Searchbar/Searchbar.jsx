@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import { FiSearch } from 'react-icons/fi';
 
 export class Searchbar extends Component {
   state = {
@@ -22,7 +23,9 @@ export class Searchbar extends Component {
       <header>
         <form onSubmit={this.handleSubmit}>
           <button type="submit">
-            <span>Search</span>
+            <span>
+              <FiSearch size="1.5em" />
+            </span>
           </button>
           <input
             type="text"
