@@ -15,12 +15,14 @@ export const Overlay = styled(Modal)`
 `;
 export const ModalStyled = styled.div`
   position: relative;
-  max-width: calc(100vw - 48px);
-  max-height: calc(100vh - 24px);
+  max-width: 80vw;
+  max-height: 80vh;
 `;
 export const StyledButtonClose = styled.button`
   position: absolute;
   top: 10px;
   right: 10px;
   border: 1px solid grey;
+  padding: 0px;
+  height: 26px;
 `;
