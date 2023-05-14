@@ -57,13 +57,16 @@ export class App extends Component {
       }
     }
   }
+
   render() {
     return (
       <>
         <Searchbar onSearch={this.handelFormSearch} />
         <ImageGallery pictures={this.state.pictures} />
         {this.state.isLoading && <Loader />}
-        <Button onClick={this.handleLoadMore} />
+        {this.state.pictures && this.state.pictures.length === 12 && (
+          <Button onClick={this.handleLoadMore} />
+        )}
       </>
     );
   }
