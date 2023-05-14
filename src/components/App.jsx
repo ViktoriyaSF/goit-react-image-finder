@@ -4,7 +4,7 @@ import { Searchbar } from './Searchbar/Searchbar';
 import * as API from '../service/api-images';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Button } from './Button/Button';
-import { ThreeDots } from 'react-loader-spinner';
+import { Loader } from './Loader/Loader';
 
 const ERROR_MSG = 'Sorry try again later 😥';
 export class App extends Component {
@@ -61,7 +61,7 @@ export class App extends Component {
     return (
       <>
         <Searchbar onSearch={this.handelFormSearch} />
-        {this.state.isLoading && <ThreeDots />}
+        {this.state.isLoading && <Loader />}
         <ImageGallery pictures={this.state.pictures} />
         <Button onClick={this.handleLoadMore} />
       </>
