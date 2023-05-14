@@ -56,12 +56,16 @@ export class App extends Component {
             pictures: [...prevState.pictures, ...fetchedApp.hits],
           };
         });
-        if (fetchedApp.hits.length < 12) {
+        if (fetchedApp.hits.length === 0) {
+          Notify.warning(
+            'Sorry, there are no images matching your search query. Please try again.'
+          );
+        }
+        if (fetchedApp.hits.length < 12 && fetchedApp.hits.length !== 0) {
           Notify.info(
             "We're sorry, but you've reached the end of search results."
           );
         }
-        console.log(fetchedApp.hits.length);
         // console.log(fetchedApp.hits);
       } catch (error) {
         this.setState({ error: ERROR_MSG });
