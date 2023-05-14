@@ -61,8 +61,8 @@ export class App extends Component {
     return (
       <>
         <Searchbar onSearch={this.handelFormSearch} />
-        {this.state.isLoading && <Loader />}
         <ImageGallery pictures={this.state.pictures} />
+        {this.state.isLoading && <Loader />}
         <Button onClick={this.handleLoadMore} />
       </>
     );
