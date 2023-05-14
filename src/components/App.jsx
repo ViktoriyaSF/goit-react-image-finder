@@ -4,12 +4,16 @@ import { Searchbar } from './Searchbar/Searchbar';
 import * as API from '../service/api-images';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Button } from './Button/Button';
+import { ThreeDots } from 'react-loader-spinner';
 
+const ERROR_MSG = 'Sorry try again later 😥';
 export class App extends Component {
   state = {
     searchQuery: '',
     pictures: [],
     page: 1,
+    isLoading: false,
+    error: null,
   };
 
   handelFormSearch = searchQuery => {
@@ -34,6 +38,7 @@ export class App extends Component {
       prevState.page !== this.state.page
     ) {
       try {
+        this.setState({ isLoading: true, error: null });
         const fetchedApp = await API.fetchImages(
           this.state.searchQuery,
           this.state.page
@@ -46,9 +51,9 @@ export class App extends Component {
         });
         console.log(fetchedApp.hits);
       } catch (error) {
-        console.log('error');
+        this.setState({ error: ERROR_MSG });
       } finally {
-        console.log(this.state);
+        this.setState({ isLoading: false });
       }
     }
   }
@@ -56,25 +61,10 @@ export class App extends Component {
     return (
       <>
         <Searchbar onSearch={this.handelFormSearch} />
+        {this.state.isLoading && <ThreeDots />}
         <ImageGallery pictures={this.state.pictures} />
         <Button onClick={this.handleLoadMore} />
       </>
     );
   }
 }
-// export const App = () => {
-//   return (
-//     <div
-//       style={{
-//         height: '100vh',
-//         display: 'flex',
-//         justifyContent: 'center',
-//         alignItems: 'center',
-//         fontSize: 40,
-//         color: '#010101',
-//       }}
-//     >
-//       React homework template
-//     </div>
-//   );
-// };
