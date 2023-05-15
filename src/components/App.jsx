@@ -20,10 +20,10 @@ export class App extends Component {
     error: null,
   };
 
-  handelFormSearch = searchQuery => {
-    const newQuery = searchQuery;
-    if (this.state.searchQuery === newQuery.trim()) {
-      if (!newQuery) {
+  handelFormSearch = value => {
+    const newQuery = value.trim();
+    if (this.state.searchQuery === newQuery) {
+      if (newQuery === '') {
         return Notify.failure(
           'Sorry, the search field cannot be empty. Please enter information to search.'
         );
@@ -31,34 +31,23 @@ export class App extends Component {
       return Notify.info('You just searched for that name');
     }
     this.setState({
-      searchQuery,
+      searchQuery: newQuery,
       pictures: [],
       page: 1,
     });
   };
 
-  handleLoadMore = evt => {
+  handleLoadMore = () => {
     const { page } = this.state;
     this.setState({ page: page + 1 });
   };
 
   async componentDidUpdate(prevProps, prevState) {
-    if (
-      prevState.searchQuery !== this.state.searchQuery ||
-      prevState.page !== this.state.page
-    ) {
+    const { page, searchQuery } = this.state;
+    if (prevState.searchQuery !== searchQuery || prevState.page !== page) {
       try {
         this.setState({ isLoading: true, error: null });
-        const fetchedApp = await API.fetchImages(
-          this.state.searchQuery,
-          this.state.page
-        );
-
-        this.setState(prevState => {
-          return {
-            pictures: [...prevState.pictures, ...fetchedApp.hits],
-          };
-        });
+        const fetchedApp = await API.fetchImages(searchQuery, page);
         if (fetchedApp.hits.length === 0) {
           Notify.warning(
             'Sorry, there are no images matching your search query. Please try again.'
@@ -69,6 +58,12 @@ export class App extends Component {
             "We're sorry, but you've reached the end of search results."
           );
         }
+
+        this.setState(prevState => {
+          return {
+            pictures: [...prevState.pictures, ...fetchedApp.hits],
+          };
+        });
         // console.log(fetchedApp.hits);
       } catch (error) {
         this.setState({ error: ERROR_MSG });
@@ -79,14 +74,13 @@ export class App extends Component {
   }
 
   render() {
+    const { pictures, isLoading } = this.state;
     return (
       <Layout>
         <Searchbar onSearch={this.handelFormSearch} />
-        <ImageGallery pictures={this.state.pictures} />
-        {this.state.isLoading && <Loader />}
-        {this.state.pictures.length >= 12 && (
-          <Button onClick={this.handleLoadMore} />
-        )}
+        <ImageGallery pictures={pictures} />
+        {isLoading && <Loader />}
+        {pictures.length >= 12 && <Button onClick={this.handleLoadMore} />}
         <BtnUp />
         <GlobalStyle />
       </Layout>

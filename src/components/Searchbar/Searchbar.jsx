@@ -14,14 +14,14 @@ export class Searchbar extends Component {
     searchQuery: '',
   };
   setSearchQuery = evt => {
+    const { value } = evt.currentTarget;
+    this.setState({ searchQuery: value.toLowerCase().trim() });
     // console.log(evt.currentTarget.value);
-    this.setState({
-      searchQuery: evt.currentTarget.value.toLowerCase().trim(),
-    });
   };
   handleSubmit = evt => {
     evt.preventDefault();
     this.props.onSearch(this.state.searchQuery);
+    // this.reset();
     this.setState({ searchQuery: ' ' });
   };
 

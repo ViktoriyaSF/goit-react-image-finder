@@ -11,13 +11,13 @@ export class ImageGalleryItem extends Component {
     selectedTags: null,
   };
 
-  // setSelectedImg = () => {
-  //   this.setState({ selectedImg: this.props.picture });
-  // };
   setSelectedImg = () => {
+    const {
+      picture: { largeImageURL, tags },
+    } = this.props;
     this.setState({
-      selectedImg: this.props.picture.largeImageURL,
-      selectedTags: this.props.picture.tags,
+      selectedImg: largeImageURL,
+      selectedTags: tags,
     });
   };
   closeModal = () => {
@@ -25,18 +25,19 @@ export class ImageGalleryItem extends Component {
   };
 
   render() {
+    const { selectedImg, selectedTag } = this.state;
     const {
       picture: { webformatURL, tags },
     } = this.props;
     return (
       <StyledImageGalleryItem>
         <img src={webformatURL} alt={tags} onClick={this.setSelectedImg} />
-        {this.state.selectedImg && (
+        {selectedImg && (
           <ImageModal
-            isOpen={this.state.selectedImg !== null}
+            isOpen={selectedImg !== null}
             onClose={this.closeModal}
-            image={this.state.selectedImg}
-            alt={this.state.selectedTag}
+            image={selectedImg}
+            alt={selectedTag}
           />
         )}
       </StyledImageGalleryItem>
