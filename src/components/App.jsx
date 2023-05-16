@@ -23,7 +23,7 @@ export class App extends Component {
   handelFormSearch = value => {
     const newQuery = value.trim();
     if (this.state.searchQuery === newQuery) {
-      if (newQuery === '') {
+      if (newQuery.trim() === '') {
         return Notify.failure(
           'Sorry, the search field cannot be empty. Please enter information to search.'
         );
