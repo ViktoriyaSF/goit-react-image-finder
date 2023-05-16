@@ -11,7 +11,7 @@ export const Overlay = styled(Modal)`
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.8);
-  z-index: 5;
+  z-index: 50000;
 `;
 export const ModalStyled = styled.div`
   position: relative;
