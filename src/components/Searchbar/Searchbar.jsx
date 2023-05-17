@@ -13,13 +13,13 @@ export class Searchbar extends Component {
   state = {
     searchQuery: '',
     // додаємо елемент в state - контрольючий компонент
-    inputValue: '',
+    // inputValue: '',
   };
   setSearchQuery = evt => {
     const { value } = evt.currentTarget;
     this.setState({ searchQuery: value.toLowerCase().trim() });
     //  робимо метод для цього контролюючого компонента
-    this.setState({ inputValue: value.toLowerCase() });
+    // this.setState({ inputValue: value.toLowerCase() });
     // console.log(evt.currentTarget.value);
   };
   handleSubmit = evt => {
@@ -32,6 +32,7 @@ export class Searchbar extends Component {
   };
 
   render() {
+    const { searchQuery } = this.state;
     return (
       <StyledSearchbar>
         <StyledSearchForm onSubmit={this.handleSubmit}>
@@ -47,7 +48,8 @@ export class Searchbar extends Component {
             placeholder="Search images and photos"
             onChange={this.setSearchQuery}
             // додали значення value і прирівняли до значення компонента
-            value={this.state.inputValue}
+            value={searchQuery}
+            // value={this.state.inputValue}
           />
         </StyledSearchForm>
       </StyledSearchbar>
