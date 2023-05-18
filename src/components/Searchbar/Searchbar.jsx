@@ -28,7 +28,7 @@ export class Searchbar extends Component {
     // this.reset();
     this.setState({ searchQuery: ' ' });
     // чистимо контролюючий компонент
-    this.setState({ inputValue: ' ' });
+    // this.setState({ inputValue: ' ' });
   };
 
   render() {
@@ -36,7 +36,7 @@ export class Searchbar extends Component {
     return (
       <StyledSearchbar>
         <StyledSearchForm onSubmit={this.handleSubmit}>
-          <StyledSearchFormButton type="submit" onClick={this.handleClear}>
+          <StyledSearchFormButton type="submit">
             <span>
               <FiSearch size="1.5em" />
             </span>
